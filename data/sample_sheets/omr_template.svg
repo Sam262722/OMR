@@ -1,0 +1,163 @@
+<svg width="210mm" height="297mm" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg">
+  <!-- OMR Sheet Template - A4 Size -->
+  
+  <!-- Header -->
+  <rect x="10" y="10" width="190" height="20" fill="none" stroke="black" stroke-width="0.5"/>
+  <text x="105" y="22" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold">OMR EVALUATION SHEET</text>
+  
+  <!-- Student Information Section -->
+  <rect x="10" y="35" width="190" height="25" fill="none" stroke="black" stroke-width="0.5"/>
+  <text x="15" y="47" font-family="Arial" font-size="10">Name: ________________________</text>
+  <text x="15" y="55" font-family="Arial" font-size="10">Roll No: ____________________</text>
+  
+  <!-- Instructions -->
+  <text x="15" y="70" font-family="Arial" font-size="8">Instructions: Fill the circles completely with dark pencil/pen. Mark only one answer per question.</text>
+  
+  <!-- Subject 1: Mathematics (Questions 1-20) -->
+  <text x="15" y="85" font-family="Arial" font-size="10" font-weight="bold">MATHEMATICS (Questions 1-20)</text>
+  
+  <!-- Questions 1-10 -->
+  <g id="subject1-part1">
+    <!-- Question numbers and options for questions 1-10 -->
+    <g transform="translate(15, 90)">
+      <!-- Questions 1-5 -->
+      <g id="questions-1-5">
+        <text x="0" y="10" font-family="Arial" font-size="8">1.</text>
+        <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+        <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+        <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+        <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+        <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+        <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+        <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+        <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+        
+        <!-- Repeat pattern for questions 2-5 -->
+        <g transform="translate(0, 20)">
+          <text x="0" y="10" font-family="Arial" font-size="8">2.</text>
+          <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+          <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+          <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+          <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+        </g>
+        
+        <g transform="translate(0, 40)">
+          <text x="0" y="10" font-family="Arial" font-size="8">3.</text>
+          <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+          <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+          <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+          <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+        </g>
+        
+        <g transform="translate(0, 60)">
+          <text x="0" y="10" font-family="Arial" font-size="8">4.</text>
+          <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+          <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+          <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+          <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+        </g>
+        
+        <g transform="translate(0, 80)">
+          <text x="0" y="10" font-family="Arial" font-size="8">5.</text>
+          <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+          <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+          <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+          <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+        </g>
+      </g>
+      
+      <!-- Questions 6-10 in second column -->
+      <g transform="translate(70, 0)">
+        <g id="questions-6-10">
+          <text x="0" y="10" font-family="Arial" font-size="8">6.</text>
+          <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+          <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+          <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+          <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+          <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+          
+          <!-- Questions 7-10 follow same pattern -->
+          <g transform="translate(0, 20)">
+            <text x="0" y="10" font-family="Arial" font-size="8">7.</text>
+            <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+            <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+            <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+            <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+          </g>
+          
+          <g transform="translate(0, 40)">
+            <text x="0" y="10" font-family="Arial" font-size="8">8.</text>
+            <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+            <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+            <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+            <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+          </g>
+          
+          <g transform="translate(0, 60)">
+            <text x="0" y="10" font-family="Arial" font-size="8">9.</text>
+            <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+            <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+            <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+            <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+          </g>
+          
+          <g transform="translate(0, 80)">
+            <text x="0" y="10" font-family="Arial" font-size="8">10.</text>
+            <circle cx="15" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="12" y="18" font-family="Arial" font-size="6">A</text>
+            <circle cx="25" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="22" y="18" font-family="Arial" font-size="6">B</text>
+            <circle cx="35" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="32" y="18" font-family="Arial" font-size="6">C</text>
+            <circle cx="45" cy="7" r="3" fill="none" stroke="black" stroke-width="0.5"/>
+            <text x="42" y="18" font-family="Arial" font-size="6">D</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Note: This is a simplified template showing the structure for first 10 questions -->
+  <!-- In a complete template, you would continue this pattern for all 100 questions -->
+  <!-- organized in 5 subjects with 20 questions each -->
+  
+  <!-- Footer with alignment marks -->
+  <circle cx="15" cy="280" r="2" fill="black"/>
+  <circle cx="195" cy="280" r="2" fill="black"/>
+  <circle cx="15" cy="15" r="2" fill="black"/>
+  <circle cx="195" cy="15" r="2" fill="black"/>
+  
+  <!-- Template info -->
+  <text x="105" y="290" text-anchor="middle" font-family="Arial" font-size="8">Template Version: A | Total Questions: 100 | Subjects: 5</text>
+</svg>
