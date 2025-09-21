@@ -11,9 +11,11 @@ import {
   ExclamationTriangleIcon,
   EyeIcon,
   TrashIcon,
-  ArrowDownTrayIcon
+  ArrowDownTrayIcon,
+  XMarkIcon
 } from '@heroicons/react/24/outline'
 import { toast } from 'react-hot-toast'
+import * as Dialog from '@radix-ui/react-dialog'
 
 interface ProcessingJob {
   id: string
@@ -30,37 +32,38 @@ interface ProcessingJob {
   error?: string
 }
 
-export default function DashboardPage() {
+export default function Dashboard() {
   const { user, profile, signOut } = useAuth()
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isUploading, setIsUploading] = useState(false)
+  const [previewJob, setPreviewJob] = useState<ProcessingJob | null>(null)
+  const [deleteJob, setDeleteJob] = useState<ProcessingJob | null>(null)
   const [jobs, setJobs] = useState<ProcessingJob[]>([
     {
       id: '1',
       fileName: 'exam_sheet_001.pdf',
+      uploadedAt: '2024-01-15T10:30:00Z',
       status: 'completed',
-      uploadedAt: new Date('2024-01-15T10:30:00'),
-      completedAt: new Date('2024-01-15T10:32:00'),
       results: {
-        totalQuestions: 50,
-        correctAnswers: 42,
         score: 84,
-        accuracy: 84
+        totalQuestions: 50,
+        correctAnswers: 42
       }
     },
     {
-      id: '2',
-      fileName: 'quiz_batch_a.pdf',
-      status: 'processing',
-      uploadedAt: new Date('2024-01-15T11:15:00')
+      id: '2', 
+      fileName: 'exam_sheet_002.pdf',
+      uploadedAt: '2024-01-15T11:15:00Z',
+      status: 'processing'
     },
     {
       id: '3',
-      fileName: 'midterm_sheets.pdf',
-      status: 'pending',
-      uploadedAt: new Date('2024-01-15T11:45:00')
+      fileName: 'exam_sheet_003.pdf', 
+      uploadedAt: '2024-01-15T12:00:00Z',
+      status: 'pending'
     }
   ])
   const [dragActive, setDragActive] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault()
@@ -127,6 +130,53 @@ export default function DashboardPage() {
         toast.error('Please upload PDF or image files only')
       }
     })
+  }
+
+  const handlePreview = (job: ProcessingJob) => {
+    setPreviewJob(job)
+  }
+
+  const handleDownload = async (job: ProcessingJob) => {
+    try {
+      toast.loading('Preparing download...', { id: 'download' })
+      
+      // Simulate download preparation
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // Create a mock CSV content
+      const csvContent = `Student ID,Question,Answer,Correct,Score
+001,1,A,A,1
+001,2,B,B,1
+001,3,C,A,0
+001,4,D,D,1
+Total Score,${job.results?.score || 0}%,${job.results?.correctAnswers || 0}/${job.results?.totalQuestions || 0}`
+      
+      const blob = new Blob([csvContent], { type: 'text/csv' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${job.fileName.replace('.pdf', '')}_results.csv`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+      
+      toast.success('Download completed!', { id: 'download' })
+    } catch (error) {
+      toast.error('Download failed', { id: 'download' })
+    }
+  }
+
+  const handleDelete = (job: ProcessingJob) => {
+    setDeleteJob(job)
+  }
+
+  const confirmDelete = () => {
+    if (deleteJob) {
+      setJobs(prev => prev.filter(j => j.id !== deleteJob.id))
+      toast.success('File deleted successfully!')
+      setDeleteJob(null)
+    }
   }
 
   const onButtonClick = () => {
@@ -320,6 +370,7 @@ export default function DashboardPage() {
                           <>
                             {/* Preview Button */}
                             <button 
+                              onClick={() => handlePreview(job)}
                               className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-blue-500 transition-colors duration-200 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20"
                               title="Preview Results"
                             >
@@ -333,6 +384,7 @@ export default function DashboardPage() {
                             
                             {/* Download Button */}
                             <button 
+                              onClick={() => handleDownload(job)}
                               className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-green-500 transition-colors duration-200 rounded-md hover:bg-green-50 dark:hover:bg-green-900/20"
                               title="Download Results"
                             >
@@ -348,6 +400,7 @@ export default function DashboardPage() {
                         
                         {/* Delete Button */}
                         <button 
+                          onClick={() => handleDelete(job)}
                           className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-red-500 transition-colors duration-200 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20"
                           title="Delete File"
                         >
@@ -367,6 +420,103 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      <Dialog.Root open={!!previewJob} onOpenChange={() => setPreviewJob(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
+          <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 w-full max-w-4xl max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <Dialog.Title className="text-xl font-semibold text-gray-900 dark:text-white">
+                OMR Results Preview - {previewJob?.fileName}
+              </Dialog.Title>
+              <Dialog.Close className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <XMarkIcon className="h-6 w-6" />
+              </Dialog.Close>
+            </div>
+            
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+              {previewJob?.results ? (
+                <div className="space-y-6">
+                  {/* Summary Stats */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        {previewJob.results.score}%
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Overall Score</div>
+                    </div>
+                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {previewJob.results.correctAnswers}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Correct Answers</div>
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-900/20 p-4 rounded-lg">
+                      <div className="text-2xl font-bold text-gray-600 dark:text-gray-400">
+                        {previewJob.results.totalQuestions}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Total Questions</div>
+                    </div>
+                  </div>
+
+                  {/* Detailed Results */}
+                  <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                    <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Question-wise Results</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {Array.from({ length: previewJob.results.totalQuestions }, (_, i) => {
+                        const isCorrect = i < previewJob.results.correctAnswers
+                        return (
+                          <div key={i} className={`p-3 rounded-md ${isCorrect ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
+                            <div className="flex items-center justify-between">
+                              <span className="font-medium">Q{i + 1}</span>
+                              <span className={`text-sm ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                {isCorrect ? '✓ Correct' : '✗ Incorrect'}
+                              </span>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="text-gray-500 dark:text-gray-400">No results available for this file.</div>
+                </div>
+              )}
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      {/* Delete Confirmation Modal */}
+      <Dialog.Root open={!!deleteJob} onOpenChange={() => setDeleteJob(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
+          <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 w-full max-w-md">
+            <div className="p-6">
+              <Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Delete File
+              </Dialog.Title>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
+                Are you sure you want to delete "{deleteJob?.fileName}"? This action cannot be undone.
+              </p>
+              <div className="flex justify-end space-x-3">
+                <Dialog.Close className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors">
+                  Cancel
+                </Dialog.Close>
+                <button
+                  onClick={confirmDelete}
+                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   )
 }
