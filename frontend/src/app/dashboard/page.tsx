@@ -288,44 +288,75 @@ export default function DashboardPage() {
                 jobs.map((job) => (
                   <div
                     key={job.id}
-                    className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg space-y-3 sm:space-y-0"
                   >
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
                       {getStatusIcon(job.status)}
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">{job.fileName}</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-gray-900 dark:text-white truncate">{job.fileName}</p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           Uploaded {job.uploadedAt.toLocaleString()}
                         </p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-4">
-                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                        {getStatusText(job.status)}
-                      </span>
+                    <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                      <div className="flex items-center justify-between sm:justify-start space-x-2 sm:space-x-4">
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                          {getStatusText(job.status)}
+                        </span>
+                        
+                        {job.status === 'completed' && job.results && (
+                          <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                            <span className="hidden sm:inline">Score: {job.results.score}%</span>
+                            <span className="sm:hidden">{job.results.score}%</span>
+                            <span className="hidden sm:inline">•</span>
+                            <span>{job.results.correctAnswers}/{job.results.totalQuestions}</span>
+                          </div>
+                        )}
                       
-                      {job.status === 'completed' && job.results && (
-                        <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                          <span>Score: {job.results.score}%</span>
-                          <span>•</span>
-                          <span>{job.results.correctAnswers}/{job.results.totalQuestions}</span>
-                        </div>
-                      )}
-                      
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-1 sm:space-x-2">
                         {job.status === 'completed' && (
                           <>
-                            <button className="p-1 text-gray-400 hover:text-blue-500">
-                              <EyeIcon className="h-4 w-4" />
+                            {/* Preview Button */}
+                            <button 
+                              className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-blue-500 transition-colors duration-200 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                              title="Preview Results"
+                            >
+                              <EyeIcon className="h-4 w-4 sm:h-4 sm:w-4" />
+                              <span className="sr-only sm:not-sr-only sm:ml-1 text-xs hidden sm:inline">Preview</span>
+                              {/* Tooltip for mobile */}
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden">
+                                Preview
+                              </div>
                             </button>
-                            <button className="p-1 text-gray-400 hover:text-green-500">
-                              <ArrowDownTrayIcon className="h-4 w-4" />
+                            
+                            {/* Download Button */}
+                            <button 
+                              className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-green-500 transition-colors duration-200 rounded-md hover:bg-green-50 dark:hover:bg-green-900/20"
+                              title="Download Results"
+                            >
+                              <ArrowDownTrayIcon className="h-4 w-4 sm:h-4 sm:w-4" />
+                              <span className="sr-only sm:not-sr-only sm:ml-1 text-xs hidden sm:inline">Download</span>
+                              {/* Tooltip for mobile */}
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden">
+                                Download
+                              </div>
                             </button>
                           </>
                         )}
-                        <button className="p-1 text-gray-400 hover:text-red-500">
-                          <TrashIcon className="h-4 w-4" />
+                        
+                        {/* Delete Button */}
+                        <button 
+                          className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-red-500 transition-colors duration-200 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20"
+                          title="Delete File"
+                        >
+                          <TrashIcon className="h-4 w-4 sm:h-4 sm:w-4" />
+                          <span className="sr-only sm:not-sr-only sm:ml-1 text-xs hidden sm:inline">Delete</span>
+                          {/* Tooltip for mobile */}
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden">
+                            Delete
+                          </div>
                         </button>
                       </div>
                     </div>
