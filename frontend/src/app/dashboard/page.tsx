@@ -133,10 +133,12 @@ export default function Dashboard() {
   }
 
   const handlePreview = (job: ProcessingJob) => {
+    console.log('Preview clicked for job:', job.id)
     setPreviewJob(job)
   }
 
   const handleDownload = async (job: ProcessingJob) => {
+    console.log('Download clicked for job:', job.id)
     try {
       toast.loading('Preparing download...', { id: 'download' })
       
@@ -163,11 +165,13 @@ Total Score,${job.results?.score || 0}%,${job.results?.correctAnswers || 0}/${jo
       
       toast.success('Download completed!', { id: 'download' })
     } catch (error) {
+      console.error('Download error:', error)
       toast.error('Download failed', { id: 'download' })
     }
   }
 
   const handleDelete = (job: ProcessingJob) => {
+    console.log('Delete clicked for job:', job.id)
     setDeleteJob(job)
   }
 
@@ -370,28 +374,38 @@ Total Score,${job.results?.score || 0}%,${job.results?.correctAnswers || 0}/${jo
                           <>
                             {/* Preview Button */}
                             <button 
-                              onClick={() => handlePreview(job)}
-                              className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-blue-500 transition-colors duration-200 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                handlePreview(job)
+                              }}
+                              className="group relative flex items-center justify-center p-3 sm:p-2 text-gray-400 hover:text-blue-500 transition-colors duration-200 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20 touch-manipulation"
                               title="Preview Results"
+                              type="button"
                             >
-                              <EyeIcon className="h-4 w-4 sm:h-4 sm:w-4" />
+                              <EyeIcon className="h-5 w-5 sm:h-4 sm:w-4" />
                               <span className="sr-only sm:not-sr-only sm:ml-1 text-xs hidden sm:inline">Preview</span>
                               {/* Tooltip for mobile */}
-                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden">
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden z-50">
                                 Preview
                               </div>
                             </button>
                             
                             {/* Download Button */}
                             <button 
-                              onClick={() => handleDownload(job)}
-                              className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-green-500 transition-colors duration-200 rounded-md hover:bg-green-50 dark:hover:bg-green-900/20"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                handleDownload(job)
+                              }}
+                              className="group relative flex items-center justify-center p-3 sm:p-2 text-gray-400 hover:text-green-500 transition-colors duration-200 rounded-md hover:bg-green-50 dark:hover:bg-green-900/20 touch-manipulation"
                               title="Download Results"
+                              type="button"
                             >
-                              <ArrowDownTrayIcon className="h-4 w-4 sm:h-4 sm:w-4" />
+                              <ArrowDownTrayIcon className="h-5 w-5 sm:h-4 sm:w-4" />
                               <span className="sr-only sm:not-sr-only sm:ml-1 text-xs hidden sm:inline">Download</span>
                               {/* Tooltip for mobile */}
-                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden">
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden z-50">
                                 Download
                               </div>
                             </button>
@@ -400,14 +414,19 @@ Total Score,${job.results?.score || 0}%,${job.results?.correctAnswers || 0}/${jo
                         
                         {/* Delete Button */}
                         <button 
-                          onClick={() => handleDelete(job)}
-                          className="group relative flex items-center justify-center p-2 sm:p-1 text-gray-400 hover:text-red-500 transition-colors duration-200 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            handleDelete(job)
+                          }}
+                          className="group relative flex items-center justify-center p-3 sm:p-2 text-gray-400 hover:text-red-500 transition-colors duration-200 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 touch-manipulation"
                           title="Delete File"
+                          type="button"
                         >
-                          <TrashIcon className="h-4 w-4 sm:h-4 sm:w-4" />
+                          <TrashIcon className="h-5 w-5 sm:h-4 sm:w-4" />
                           <span className="sr-only sm:not-sr-only sm:ml-1 text-xs hidden sm:inline">Delete</span>
                           {/* Tooltip for mobile */}
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden">
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none sm:hidden z-50">
                             Delete
                           </div>
                         </button>
@@ -425,49 +444,49 @@ Total Score,${job.results?.score || 0}%,${job.results?.correctAnswers || 0}/${jo
       <Dialog.Root open={!!previewJob} onOpenChange={() => setPreviewJob(null)}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
-          <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 w-full max-w-4xl max-h-[90vh] overflow-hidden">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-              <Dialog.Title className="text-xl font-semibold text-gray-900 dark:text-white">
+          <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 w-[95vw] sm:w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
+              <Dialog.Title className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white pr-4">
                 OMR Results Preview - {previewJob?.fileName}
               </Dialog.Title>
-              <Dialog.Close className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+              <Dialog.Close className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 touch-manipulation">
                 <XMarkIcon className="h-6 w-6" />
               </Dialog.Close>
             </div>
             
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+            <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(95vh-80px)] sm:max-h-[calc(90vh-120px)]">
               {previewJob?.results ? (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Summary Stats */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 p-3 sm:p-4 rounded-lg">
+                      <div className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
                         {previewJob.results.score}%
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Overall Score</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Overall Score</div>
                     </div>
-                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                    <div className="bg-green-50 dark:bg-green-900/20 p-3 sm:p-4 rounded-lg">
+                      <div className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">
                         {previewJob.results.correctAnswers}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Correct Answers</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Correct Answers</div>
                     </div>
-                    <div className="bg-gray-50 dark:bg-gray-900/20 p-4 rounded-lg">
-                      <div className="text-2xl font-bold text-gray-600 dark:text-gray-400">
+                    <div className="bg-gray-50 dark:bg-gray-900/20 p-3 sm:p-4 rounded-lg">
+                      <div className="text-xl sm:text-2xl font-bold text-gray-600 dark:text-gray-400">
                         {previewJob.results.totalQuestions}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Total Questions</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Total Questions</div>
                     </div>
                   </div>
 
                   {/* Detailed Results */}
-                  <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
-                    <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Question-wise Results</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-3 sm:p-4">
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-900 dark:text-white">Question-wise Results</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
                       {Array.from({ length: previewJob.results.totalQuestions }, (_, i) => {
                         const isCorrect = i < previewJob.results.correctAnswers
                         return (
-                          <div key={i} className={`p-3 rounded-md ${isCorrect ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
+                          <div key={i} className={`p-2 sm:p-3 rounded-md ${isCorrect ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
                             <div className="flex items-center justify-between">
                               <span className="font-medium">Q{i + 1}</span>
                               <span className={`text-sm ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
@@ -494,21 +513,21 @@ Total Score,${job.results?.score || 0}%,${job.results?.correctAnswers || 0}/${jo
       <Dialog.Root open={!!deleteJob} onOpenChange={() => setDeleteJob(null)}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
-          <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 w-full max-w-md">
-            <div className="p-6">
-              <Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 w-[90vw] sm:w-full max-w-md">
+            <div className="p-4 sm:p-6">
+              <Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                 Delete File
               </Dialog.Title>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
                 Are you sure you want to delete "{deleteJob?.fileName}"? This action cannot be undone.
               </p>
-              <div className="flex justify-end space-x-3">
-                <Dialog.Close className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors">
+              <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
+                <Dialog.Close className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors rounded-md border border-gray-300 dark:border-gray-600 touch-manipulation">
                   Cancel
                 </Dialog.Close>
                 <button
                   onClick={confirmDelete}
-                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors touch-manipulation"
                 >
                   Delete
                 </button>
