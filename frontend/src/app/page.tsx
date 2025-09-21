@@ -70,7 +70,7 @@ export default function HomePage() {
           
           <p className="text-lg sm:text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
             Professional optical mark recognition system with AI-powered accuracy, real-time processing, 
-            and comprehensive analytics for educational institutions.
+            and comprehensive analytics for educational institutions - Now with automatic deployments!
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

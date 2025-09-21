@@ -166,9 +166,28 @@ vercel rm [deployment-url]
 - ✅ Static generation where possible
 - ✅ Incremental Static Regeneration (ISR) ready
 
+## GitHub Integration
+
+✅ **Repository Connected**: https://github.com/Sam262722/OMR.git <mcreference link="https://github.com/Sam262722/OMR.git" index="0">0</mcreference>
+
+### Automatic Deployments
+- **GitHub Repository**: Connected to Vercel project
+- **Auto-Deploy**: Every push to `main` branch triggers automatic deployment
+- **Preview Deployments**: Pull requests create preview deployments
+- **Production URL**: https://v0-exam-taking-platform-b1jwukx4g-sams-projects-d1727290.vercel.app
+
+### Git Workflow
+```bash
+# Make changes to your code
+git add .
+git commit -m "Your commit message"
+git push origin main  # Automatically triggers Vercel deployment
+```
+
 ## Notes
 
 - Application uses Next.js 15 with React 19
 - TypeScript and ESLint errors are ignored during build for faster deployment
 - All sensitive data is stored in environment variables
 - Role system updated to support teacher, admin, and super_admin roles only
+- **GitHub Integration**: Repository connected for automatic deployments <mcreference link="https://github.com/Sam262722/OMR.git" index="0">0</mcreference>
